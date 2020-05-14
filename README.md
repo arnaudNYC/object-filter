@@ -12,16 +12,16 @@ This project has no dependencies.
 
 ### npm
 
-`npm install object-filter`
+`npm install @arnaudnyc/object-filter`
 
 ### yarn
 
-`yarn add object-filter`
+`yarn add @arnaudnyc/object-filter`
 
 ## Usage
 
 ```
-const objectFilter = require('object-filter');
+const objectFilter = require('@arnaudnyc/object-filter');
 
 const object = {
   keep: 'yes',
