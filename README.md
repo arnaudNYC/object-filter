@@ -2,7 +2,7 @@
 
 [![Coverage Status](https://coveralls.io/repos/github/arnaudNYC/object-filter/badge.svg?branch=master)](https://coveralls.io/github/arnaudNYC/object-filter?branch=master)
 
-Returns a new object containing all elements of the calling object for which the provided filter callback returns true.
+Creates a copy of an object containing all elements for which the provided filter callback returns true.
 
 Like [Array.prototype.filter()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) but for objects.
 
@@ -29,10 +29,13 @@ const object = {
 };
 
 const filteredByProperty = objectFilter(object, property => property === 'keep');
-console.log('filteredByProperty: ', filteredByProperty); // filteredByProperty:  { keep: 'yes' }
+console.log('filteredByProperty:', filteredByProperty); // filteredByProperty: { keep: 'yes' }
 
 const filteredByValue = objectFilter(object, (property, value) => value === 'yes');
-console.log('filteredByValue: ', filteredByValue); // filteredByValue:  { keep: 'yes' }
+console.log('filteredByValue:', filteredByValue); // filteredByValue: { keep: 'yes' }
+
+// no mutation
+console.log('object:', object); // object: { keep: 'yes', discard: 'no' }
 ```
 
 ## Testing
