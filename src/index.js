@@ -9,7 +9,7 @@ function objectFilter(object, filter) {
   if (Array.isArray(object)) {
     return object.map((o) => objectFilter(o, filter));
   }
-  if (typeof object === 'object') {
+  if (typeof object === 'object' && object !== null) {
     return Object.keys(object).reduce((acc, key) => {
       if (filter(key, object[key])) {
         acc[key] = objectFilter(object[key], filter);
