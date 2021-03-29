@@ -1,6 +1,6 @@
 {
   "name": "@arnaudnyc/object-filter",
-  "version": "1.0.2",
+  "version": "1.0.1",
   "description": "Returns a new object containing all elements of the calling object for which the provided filter callback returns true",
   "homepage": "https://github.com/arnaudNYC/object-filter",
   "main": "./src/index.js",
