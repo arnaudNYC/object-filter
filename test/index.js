@@ -1,7 +1,6 @@
 const test = require('ava');
 
-// const objectFilter = require('object-filter')
-const objectFilter = require('../src/index');
+const objectFilter = require('../src');
 
 test('should filter by property', (t) => {
   const obj = {
@@ -10,6 +9,7 @@ test('should filter by property', (t) => {
     d: { x: {}, e: 1000 },
     f: { g: { h: { x: [] } } },
     i: [{ j: 1, x: 2 }, { x: 3 }],
+    k: [{ x: 1 }],
   };
   const expected = {
     a: {},
@@ -17,7 +17,9 @@ test('should filter by property', (t) => {
     d: { e: 1000 },
     f: { g: { h: {} } },
     i: [{ j: 1 }, {}],
+    k: [{}],
   };
+  // remove all the 'x' properties
   const actual = objectFilter(obj, (k) => k !== 'x');
   t.deepEqual(actual, expected);
 });
@@ -30,16 +32,14 @@ test('should filter by value', (t) => {
   const expected = {
     keep: 1,
   };
-  const filter = (k, v) => v % 2;
+  const filter = (k, v) => v === 1;
   t.deepEqual(objectFilter(obj, filter), expected);
 });
 
 test('should not filter', (t) => {
   const object = { a: 1 };
-  t.deepEqual(
-    objectFilter(object, (k) => k !== 'x'),
-    object,
-  );
+  const filter = (k) => k !== 'x';
+  t.deepEqual(objectFilter(object, filter), object);
 });
 
 test('should filter a circular object', (t) => {
@@ -61,5 +61,15 @@ test('should accept non function filters', (t) => {
   const object = { a: 1 };
   t.deepEqual(objectFilter(object, null), object);
   t.deepEqual(objectFilter(object, undefined), object);
-  t.deepEqual(objectFilter(object, Boolean.true), object);
+  t.deepEqual(objectFilter(object, Boolean), object);
+});
+
+test('should handle null and undefined keys and values', (t) => {
+  const object = {
+    isNull: null,
+    isUndefined: undefined,
+    undefined: 'undefined',
+    null: 'null',
+  };
+  t.deepEqual(objectFilter(object, Boolean), object);
 });
